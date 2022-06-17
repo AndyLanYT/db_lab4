@@ -12,19 +12,6 @@ def mark(string):
 ZNO2019 = 'Odata2019File.csv'
 ZNO2021 = 'Odata2021File.csv'
 
-create = '''
-CREATE TABLE IF NOT EXISTS tbl_ZNO (
-    outID VARCHAR (36) PRIMARY KEY,
-    birth INT NOT NULL,
-    sexType VARCHAR (255) NOT NULL,
-    regname VARCHAR (255),
-    testName VARCHAR (255) NOT NULL,
-    testMark REAL,
-    testStatus BOOLEAN,
-    year INT NOT NULL
-);
-'''
-
 
 tries = 5
 while tries:
@@ -40,78 +27,78 @@ while tries:
         count = collection.count_documents({'year': 2019})
         print(count)
 
-        # with open(ZNO2019, 'r', encoding='windows-1251') as csvfile:
-        #     reader = csv.reader(csvfile, delimiter=';')
-        #     headers = next(reader)
+        with open(ZNO2019, 'r', encoding='windows-1251') as csvfile:
+            reader = csv.reader(csvfile, delimiter=';')
+            headers = next(reader)
 
-        #     outid = headers.index('OUTID')
-        #     birth = headers.index('Birth')
-        #     sextypename = headers.index('SEXTYPENAME')
-        #     regname = headers.index('REGNAME')
-        #     engTest = headers.index('engTest')
-        #     engBall100 = headers.index('engBall100')
-        #     engTestStatus = headers.index('engTestStatus')
-        #     year = 2019
+            outid = headers.index('OUTID')
+            birth = headers.index('Birth')
+            sextypename = headers.index('SEXTYPENAME')
+            regname = headers.index('REGNAME')
+            engTest = headers.index('engTest')
+            engBall100 = headers.index('engBall100')
+            engTestStatus = headers.index('engTestStatus')
+            year = 2019
 
-        #     for idx in range(count):
-        #         if idx % 10000 == 0:
-        #             print(f'{idx} records skipped!')
+            for idx in range(count):
+                if idx % 10000 == 0:
+                    print(f'{idx} records skipped!')
                 
-        #         next(reader)
+                next(reader)
             
-        #     for idx, row in enumerate(reader):
-        #         values = {'outID': row[outid],
-        #                   'birth': row[birth],
-        #                   'sexTypeName': row[sextypename],
-        #                   'regName': row[regname],
-        #                   'testName': row[engTest],
-        #                   'testMark': mark(row[engBall100]),
-        #                   'testStatus': row[engTestStatus] != 'null',
-        #                   'year': year}
+            for idx, row in enumerate(reader):
+                values = {'outID': row[outid],
+                          'birth': row[birth],
+                          'sexTypeName': row[sextypename],
+                          'regName': row[regname],
+                          'testName': row[engTest],
+                          'testMark': mark(row[engBall100]),
+                          'testStatus': row[engTestStatus] != 'null',
+                          'year': year}
                 
-        #         collection.insert_one(values)
+                collection.insert_one(values)
 
-        #         if idx % 10000 == 0:
-        #             print(f'{idx} records added!')
+                if idx % 10000 == 0:
+                    print(f'{idx} records added!')
 
 
-        # count = collection.count_documents({'year': 2021})
-        # print(count)
+        count = collection.count_documents({'year': 2021})
+        print(count)
     
-        # with open(ZNO2021, 'r', encoding='utf-8-sig') as csvfile:
-        #     reader = csv.reader(csvfile, delimiter=';')
-        #     headers = next(reader)
+        with open(ZNO2021, 'r', encoding='utf-8-sig') as csvfile:
+            reader = csv.reader(csvfile, delimiter=';')
+            headers = next(reader)
 
-        #     outid = headers.index('OUTID')
-        #     birth = headers.index('Birth')
-        #     sextypename = headers.index('SexTypeName')
-        #     regname = headers.index('RegName')
-        #     engTest = headers.index('EngTest')
-        #     engBall100 = headers.index('EngBall100')
-        #     engTestStatus = headers.index('EngTestStatus')
-        #     year = 2021
+            outid = headers.index('OUTID')
+            birth = headers.index('Birth')
+            sextypename = headers.index('SexTypeName')
+            regname = headers.index('RegName')
+            engTest = headers.index('EngTest')
+            engBall100 = headers.index('EngBall100')
+            engTestStatus = headers.index('EngTestStatus')
+            year = 2021
 
-        #     for idx in range(count):
-        #         if idx % 10000 == 0:
-        #             print(f'{idx} records skipped!')
+            for idx in range(count):
+                if idx % 10000 == 0:
+                    print(f'{idx} records skipped!')
 
-        #         next(reader)
+                next(reader)
             
-        #     for idx, row in enumerate(reader):
-        #         values = (row[outid], row[birth], row[sextypename], row[regname], mark(row[engBall100]), row[engTestStatus] != 'null', 2021)
-        #         values = {'outID': row[outid],
-        #                   'birth': row[birth],
-        #                   'sexTypeName': row[sextypename],
-        #                   'regName': row[regname],
-        #                   'testName': row[engTest],
-        #                   'testMark': mark(row[engBall100]),
-        #                   'testStatus': row[engTestStatus] != 'null',
-        #                   'year': year}
+            for idx, row in enumerate(reader):
+                values = (row[outid], row[birth], row[sextypename], row[regname], mark(row[engBall100]), row[engTestStatus] != 'null', 2021)
+                values = {'outID': row[outid],
+                          'birth': row[birth],
+                          'sexTypeName': row[sextypename],
+                          'regName': row[regname],
+                          'testName': row[engTest],
+                          'testMark': mark(row[engBall100]),
+                          'testStatus': row[engTestStatus] != 'null',
+                          'year': year}
                 
-        #         collection.insert_one(values)
+                collection.insert_one(values)
 
-        #         if idx % 10000 == 0:
-        #             print(f'{idx} records added!')
+                if idx % 10000 == 0:
+                    print(f'{idx} records added!')
         
         print('All data successfuly inserted')
 
@@ -160,7 +147,7 @@ while tries:
     except FileNotFoundError as err:
         tries = 0
         # print('FileNotFoundError')
-        print(f'File {err.filename} does not exist')
+        print(f'File {err.filename} does not exist!')
 
     except:
         print('Undefined error!!')
