@@ -3,8 +3,6 @@ import csv
 import time
 
 
-
-print('here')
 def mark(string):
     if string != 'null' and string is not None:
         return float(string.replace(',', '.'))
@@ -20,7 +18,6 @@ while tries:
 
         db = db_client['znodata']
         collection = db['zno']
-        
 
         start = time.time()
         
